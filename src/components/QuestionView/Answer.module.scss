@@ -1,0 +1,49 @@
+.answer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
+    margin: 0 5px;
+    padding: 10px;
+    border-bottom: 1px solid #555;
+    cursor: pointer;
+    &:last-child {
+        border-bottom: none;
+    }
+
+    &:hover {
+        background-color: #ccd0da;
+    }
+}
+
+.checkbox {
+    width: 30px;
+    height: 30px;
+    display: inline-block;
+    border-radius: 50%;
+    border: 2px solid #4c4f69;
+    color: #4c4f69;
+    position: relative;
+    text-align: center;
+    line-height: 30px;
+    font-weight: 600;
+    font-size: 16px;
+    transition: background-color .15s, border-color .15s, color .15s;
+
+    &.checked {
+        background-color: #4c4f69;
+        color: #fff;
+    }
+
+    &.correct {
+        background-color: #40a02b;
+        border-color: #40a02b;
+        color: #fff;
+    }
+
+    &.false {
+        background-color: #d20f39;
+        border-color: #d20f39;
+        color: #fff;
+    }
+}

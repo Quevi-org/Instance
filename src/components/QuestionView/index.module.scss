@@ -1,0 +1,22 @@
+.wrapper {
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    align-items:flex-start;
+    align-content:flex-start;
+    margin-bottom: 40px;
+    min-width: 30vw;
+
+    .description {
+        flex-grow: 1;
+
+        p {
+            margin: 0;
+        }
+
+        .path {
+            font-size: 12px;
+            opacity: .6;
+        }
+    }
+}
