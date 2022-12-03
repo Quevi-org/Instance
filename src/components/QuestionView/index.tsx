@@ -1,5 +1,7 @@
+import ReactMarkdown from "react-markdown"
 import Options from "./Answer"
 import styles from "./index.module.scss"
+import remarkGfm from "remark-gfm"
 
 interface Props {
     question: Question
@@ -14,7 +16,7 @@ export default ({question, showItems = false, options, onQuestionClick, button, 
     return <>
         <div className={styles["wrapper"]}>
             <div className={styles["description"]}>
-                <p>{question.description}</p>
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>{question.description}</ReactMarkdown>
                 <span className={styles["path"]}>From: {question.path}</span>
             </div>
             {button && <button onClick={onButtonClick}>{button}</button>}

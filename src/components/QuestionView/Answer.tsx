@@ -1,4 +1,6 @@
 import { useState } from "react"
+import ReactMarkdown from "react-markdown"
+import remarkGfm from "remark-gfm"
 import joinClasses from "../../utils/joinClasses"
 import style from "./Answer.module.scss"
 
@@ -15,7 +17,7 @@ export default ({answer, identifier, showItems = false, checked, onClick}: Props
 
     return <div className={style["answer"]} {...{onClick}}>
         {!showItems ? <Checkbox value={checked} letter={identifier}/> : <ResolvedCheckbox value={answer.value === true ? true : (checked ? answer.value : null)} letter={identifier}/>}
-        <span>{answer.name}</span>
+        <ReactMarkdown remarkPlugins={[remarkGfm]}>{answer.name}</ReactMarkdown>
     </div>
 }
 
