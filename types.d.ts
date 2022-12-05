@@ -18,10 +18,4 @@ declare interface Answer {
     value: boolean
 }
 
-// from https://stackoverflow.com/a/73369825
-declare type StringLength<
-  S extends string,
-  Acc extends 0[] = []
-> = S extends `${string}${infer $Rest}`
-  ? LengthOfString<$Rest, [...Acc, 0]>
-  : Acc["length"];
+type Modify<T, R> = Omit<T, keyof R> & R;

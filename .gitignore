@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# in case of weird fuse file
+.fuse_hidden*

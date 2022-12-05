@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import {useQuery} from "react-query"
 import { getRandomQuestion } from "./api/fetchServer"
 import QuestionView from "./components/QuestionView"
+import OverlayButton from "./components/OverlayButton"
 import _ from "lodash"
 
 function App() {
@@ -21,6 +22,7 @@ function App() {
     }, [query.isLoading])
 
     return <>
+        <OverlayButton />
         <div>
             {!(query.isLoading || query.isError) && <QuestionView
                 question={query.data!}
@@ -55,38 +57,5 @@ function App() {
         </div>
     </>
 }
-
-// const Manager = ({question}: {question: Question}) => {
-//     const query = getQuery<Question>("question")
-//     const [answered, setAnswered] = useState<boolean>(false)
-//     const [options, setOptions] = useState<{[key: string]: boolean}>({})
-
-//     useEffect(() => {
-//         let opts: {[key: string]: boolean} = {}
-//         for (const identifier in question.answers) {
-//             opts[identifier] = false
-//         }
-//         setOptions(opts)
-//     }, [])
-
-//     return <>
-//         <div>
-//             {answered ? <button onClick={() => {query.refetch(); setAnswered(false)}}>Next</button> : <button onClick={() => setAnswered(true)}>Show</button>}
-
-//             {!(query.isFetching || query.isError) && <QuestionView
-//                 question={query.data!}
-//                 showItems={answered}
-//                 options={options}
-//                 onQuestionClick={(identifier) => {
-//                     if(answered) return
-//                     let newOpts = {...options}
-//                     newOpts[identifier] = !newOpts[identifier]
-//                     setOptions(newOpts)
-//                 }}/>}
-//             {query.isFetching && <span>Loading</span>}
-//             {query.isError && <span>Error</span>}
-//         </div>
-//     </>
-// }
 
 export default App
