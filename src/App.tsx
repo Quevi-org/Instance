@@ -1,5 +1,5 @@
-import { useEffect, useMemo, useState } from "react"
-import {useQuery} from "react-query"
+import { useEffect, useState } from "react"
+import {useQuery, UseQueryResult} from "react-query"
 import { getRandomQuestion } from "api/fetchServer"
 import { randomServer, serverList } from "api/serverManager"
 import QuestionView from "components/QuestionView"
@@ -7,8 +7,8 @@ import OverlayButton from "components/OverlayButton"
 import _ from "lodash"
 
 function App() {
-    const query = useQuery(["question", randomServer()], ({queryKey: [, server]}) => getRandomQuestion(server), {refetchOnWindowFocus: false})
-    
+    const query: UseQueryResult<Question & {server:  string}, unknown> = useQuery(["question", randomServer()], async ({queryKey: [, server]}) => ({... await getRandomQuestion(server), server}), {refetchOnWindowFocus: false})
+
     const [answered, setAnswered] = useState<boolean>(false)
     const [options, setOptions] = useState<{[key: string]: boolean}>({})
 
@@ -24,10 +24,11 @@ function App() {
 
     return <>
         {!_.isEmpty(serverList) ? <div>
-            {!(query.isLoading || query.isError) && <QuestionView
+            {!query.isLoading && !query.isError && <QuestionView
                 question={query.data!}
                 showItems={answered}
                 options={options}
+                server={query.data!.server}
                 onQuestionClick={(identifier) => {
                     if(answered) return
                     let newOpts = {...options}
