@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useEffect, useMemo, useState } from "react"
 import {useQuery} from "react-query"
 import { getRandomQuestion } from "api/fetchServer"
 import { randomServer, serverList } from "api/serverManager"
@@ -8,7 +8,7 @@ import _ from "lodash"
 
 function App() {
     const query = useQuery(["question", randomServer()], ({queryKey: [, server]}) => getRandomQuestion(server), {refetchOnWindowFocus: false})
-
+    
     const [answered, setAnswered] = useState<boolean>(false)
     const [options, setOptions] = useState<{[key: string]: boolean}>({})
 
