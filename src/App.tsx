@@ -1,12 +1,13 @@
 import { useEffect, useState } from "react"
 import {useQuery} from "react-query"
-import { getRandomQuestion } from "./api/fetchServer"
-import QuestionView from "./components/QuestionView"
-import OverlayButton from "./components/OverlayButton"
+import { getRandomQuestion } from "api/fetchServer"
+import { randomServer, serverList } from "api/serverManager"
+import QuestionView from "components/QuestionView"
+import OverlayButton from "components/OverlayButton"
 import _ from "lodash"
 
 function App() {
-    const query = useQuery("question", getRandomQuestion, {refetchOnWindowFocus: false})
+    const query = useQuery(["question", randomServer()], ({queryKey: [, server]}) => getRandomQuestion(server), {refetchOnWindowFocus: false})
 
     const [answered, setAnswered] = useState<boolean>(false)
     const [options, setOptions] = useState<{[key: string]: boolean}>({})
@@ -22,8 +23,7 @@ function App() {
     }, [query.isLoading])
 
     return <>
-        <OverlayButton />
-        <div>
+        {!_.isEmpty(serverList) ? <div>
             {!(query.isLoading || query.isError) && <QuestionView
                 question={query.data!}
                 showItems={answered}
@@ -54,7 +54,8 @@ function App() {
             />}
             {query.isLoading && <span>Loading</span>}
             {query.isError && <span>Error</span>}
-        </div>
+        </div> : <span>Click the Settings button to add servers</span>}
+        <OverlayButton />
     </>
 }
 

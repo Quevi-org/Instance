@@ -17,7 +17,8 @@
     "jsx": "react-jsx",
     "baseUrl": "src",
     "paths": {
-      "@/*": ["src/*"]
+      "api": ["src/api"],
+      "components": ["src/components"]
     },
     "types": ["vitest/importMeta", "vite/client"]
   },
